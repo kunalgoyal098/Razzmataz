@@ -16,6 +16,21 @@ export interface Agent {
   updated_at: string
 }
 
+// Customer interface
+export interface Customer {
+  id: string
+  agent_id: string
+  name: string
+  phone_number: string
+  email?: string
+  company?: string
+  address?: string
+  notes?: string
+  status: 'prospect' | 'contacted' | 'interested' | 'converted' | 'lost'
+  created_at: string
+  updated_at: string
+}
+
 // Auth functions
 export const signUp = async (email: string, password: string, agentData: {
   agent_name: string
@@ -97,4 +112,72 @@ export const getCurrentAgent = async (): Promise<Agent | null> => {
   
   if (error) throw error
   return data
+}
+
+// Customer CRUD functions
+export const createCustomer = async (customerData: Omit<Customer, 'id' | 'agent_id' | 'created_at' | 'updated_at'>): Promise<Customer> => {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Not authenticated')
+
+  const { data, error } = await supabase
+    .from('customers')
+    .insert([
+      {
+        ...customerData,
+        agent_id: user.id,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      }
+    ])
+    .select()
+    .single()
+
+  if (error) throw error
+  return data
+}
+
+export const getCustomers = async (): Promise<Customer[]> => {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Not authenticated')
+
+  const { data, error } = await supabase
+    .from('customers')
+    .select('*')
+    .eq('agent_id', user.id)
+    .order('created_at', { ascending: false })
+
+  if (error) throw error
+  return data || []
+}
+
+export const updateCustomer = async (id: string, customerData: Partial<Omit<Customer, 'id' | 'agent_id' | 'created_at'>>): Promise<Customer> => {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Not authenticated')
+
+  const { data, error } = await supabase
+    .from('customers')
+    .update({
+      ...customerData,
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', id)
+    .eq('agent_id', user.id) // Ensure user can only update their own customers
+    .select()
+    .single()
+
+  if (error) throw error
+  return data
+}
+
+export const deleteCustomer = async (id: string): Promise<void> => {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) throw new Error('Not authenticated')
+
+  const { error } = await supabase
+    .from('customers')
+    .delete()
+    .eq('id', id)
+    .eq('agent_id', user.id) // Ensure user can only delete their own customers
+
+  if (error) throw error
 }

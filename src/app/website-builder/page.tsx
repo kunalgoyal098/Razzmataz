@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+// import Image from "next/image"; // Unused import
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -77,7 +77,7 @@ export default function WebsiteBuilder() {
         formDataToSend.append('logo', formData.logo);
       }
       
-      formData.officePhotos.forEach((photo, index) => {
+      formData.officePhotos.forEach((photo) => {
         formDataToSend.append('officePhotos', photo);
       });
 

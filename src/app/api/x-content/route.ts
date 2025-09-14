@@ -96,7 +96,6 @@ class XContentService {
       return Array.isArray(tweets) ? tweets : [];
     } catch (error) {
       console.error('Error generating X/Twitter thread:', error);
-      console.error('Failed to parse text:', response.candidates?.[0]?.content?.parts?.[0]?.text);
       
       // Fallback thread if API fails
       return [
@@ -165,7 +164,7 @@ export async function POST(request: NextRequest) {
 
     const service = new XContentService();
     let content: string | string[] = '';
-    let additionalData: any = {};
+    let additionalData: Record<string, unknown> = {};
 
     switch (content_type) {
       case 'tweet':

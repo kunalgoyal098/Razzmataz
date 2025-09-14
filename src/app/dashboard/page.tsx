@@ -36,7 +36,7 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-lg font-medium text-gray-900 mb-1 lg:text-xl xl:text-2xl">
-                Hi {agent.agent_name}, Let's boost your online visibility...
+                Hi {agent.agent_name}, Let&apos;s boost your online visibility...
               </h1>
               <p className="text-sm text-gray-600">
                 {agent.company_name}

@@ -24,13 +24,14 @@ export default function SignIn() {
         // For development, allow unconfirmed emails to sign in
         router.push('/dashboard');
       }
-    } catch (err: any) {
-      if (err.message.includes('Email not confirmed')) {
+    } catch (err: unknown) {
+      const errorMessage = (err as Error).message || '';
+      if (errorMessage.includes('Email not confirmed')) {
         setError('Please check your email and click the confirmation link before signing in.');
-      } else if (err.message.includes('Invalid login credentials')) {
+      } else if (errorMessage.includes('Invalid login credentials')) {
         setError('Invalid email or password. Please check your credentials.');
       } else {
-        setError(err.message || 'Failed to sign in');
+        setError((err as Error).message || 'Failed to sign in');
       }
     } finally {
       setLoading(false);
@@ -127,7 +128,7 @@ export default function SignIn() {
             {/* Sign Up Link */}
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <button
                   type="button"
                   onClick={() => router.push('/auth/signup')}

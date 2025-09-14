@@ -126,7 +126,7 @@ export async function deployToVercel(
               
               // Look for the shortest domain (usually the public one)
               if (project.alias && project.alias.length > 0) {
-                const shortestDomain = project.alias.reduce((shortest: any, current: any) => 
+                const shortestDomain = project.alias.reduce((shortest: { domain: string }, current: { domain: string }) => 
                   current.domain.length < shortest.domain.length ? current : shortest
                 );
                 
@@ -141,7 +141,7 @@ export async function deployToVercel(
                 
                 // Check deployment aliases as backup
                 if (status.alias && status.alias.length > 0) {
-                  const shortestAlias = status.alias.reduce((shortest: any, current: any) => 
+                  const shortestAlias = status.alias.reduce((shortest: string, current: string) => 
                     current.length < shortest.length ? current : shortest
                   );
                   

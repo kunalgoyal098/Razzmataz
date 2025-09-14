@@ -54,7 +54,7 @@ export default function LinkedIn() {
     }));
   };
 
-  const postType = contentType === "post" ? (formData.post as any).postType : "thought_leadership";
+  const postType = contentType === "post" ? (formData.post as { postType: string }).postType : "thought_leadership";
   const setPostType = (value: string) => {
     if (contentType === "post") {
       setFormData(prev => ({
@@ -64,7 +64,7 @@ export default function LinkedIn() {
     }
   };
 
-  const originalPost = contentType === "comment" ? (formData.comment as any).originalPost : "";
+  const originalPost = contentType === "comment" ? (formData.comment as { originalPost: string }).originalPost : "";
   const setOriginalPost = (value: string) => {
     if (contentType === "comment") {
       setFormData(prev => ({
@@ -74,7 +74,7 @@ export default function LinkedIn() {
     }
   };
 
-  const commentType = contentType === "comment" ? (formData.comment as any).commentType : "expert_insight";
+  const commentType = contentType === "comment" ? (formData.comment as { commentType: string }).commentType : "expert_insight";
   const setCommentType = (value: string) => {
     if (contentType === "comment") {
       setFormData(prev => ({
@@ -84,7 +84,7 @@ export default function LinkedIn() {
     }
   };
 
-  const recipientProfile = contentType === "connection" ? (formData.connection as any).recipientProfile : "";
+  const recipientProfile = contentType === "connection" ? (formData.connection as { recipientProfile: string }).recipientProfile : "";
   const setRecipientProfile = (value: string) => {
     if (contentType === "connection") {
       setFormData(prev => ({
@@ -136,7 +136,7 @@ export default function LinkedIn() {
       } else {
         setError(data.message || "Failed to generate content");
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please try again.");
     } finally {
       setIsLoading(false);
@@ -148,7 +148,7 @@ export default function LinkedIn() {
       await navigator.clipboard.writeText(text);
       // Optional: Show a brief success message
       console.log('Content copied to clipboard');
-    } catch (err) {
+    } catch {
       // Fallback for mobile or when clipboard API fails
       const textArea = document.createElement('textarea');
       textArea.value = text;
@@ -161,8 +161,8 @@ export default function LinkedIn() {
       try {
         document.execCommand('copy');
         console.log('Content copied to clipboard (fallback)');
-      } catch (err) {
-        console.error('Failed to copy text: ', err);
+      } catch {
+        console.error('Failed to copy text');
       }
       document.body.removeChild(textArea);
     }

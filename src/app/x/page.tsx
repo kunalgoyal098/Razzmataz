@@ -49,7 +49,7 @@ export default function XPage() {
     }));
   };
 
-  const tweetType = contentType === "tweet" ? (formData.tweet as any).tweetType : "general";
+  const tweetType = contentType === "tweet" ? (formData.tweet as { tweetType: string }).tweetType : "general";
   const setTweetType = (value: string) => {
     if (contentType === "tweet") {
       setFormData(prev => ({
@@ -59,7 +59,7 @@ export default function XPage() {
     }
   };
 
-  const threadLength = contentType === "thread" ? (formData.thread as any).threadLength : 3;
+  const threadLength = contentType === "thread" ? (formData.thread as { threadLength: number }).threadLength : 3;
   const setThreadLength = (value: number) => {
     if (contentType === "thread") {
       setFormData(prev => ({
@@ -69,7 +69,7 @@ export default function XPage() {
     }
   };
 
-  const originalTweet = contentType === "reply" ? (formData.reply as any).originalTweet : "";
+  const originalTweet = contentType === "reply" ? (formData.reply as { originalTweet: string }).originalTweet : "";
   const setOriginalTweet = (value: string) => {
     if (contentType === "reply") {
       setFormData(prev => ({
@@ -79,7 +79,7 @@ export default function XPage() {
     }
   };
 
-  const replyType = contentType === "reply" ? (formData.reply as any).replyType : "helpful";
+  const replyType = contentType === "reply" ? (formData.reply as { replyType: string }).replyType : "helpful";
   const setReplyType = (value: string) => {
     if (contentType === "reply") {
       setFormData(prev => ({
@@ -126,7 +126,7 @@ export default function XPage() {
       } else {
         setError(data.message || "Failed to generate content");
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please try again.");
     } finally {
       setIsLoading(false);
@@ -328,7 +328,7 @@ export default function XPage() {
                         Twitter Thread ({generatedContent.thread_length} tweets, {generatedContent.total_characters} chars)
                       </h3>
                       <button
-                        onClick={() => handleCopy(generatedContent.content!.join('\n\n'))}
+                        onClick={() => handleCopy(Array.isArray(generatedContent.content) ? generatedContent.content.join('\n\n') : generatedContent.content!)}
                         className="text-black hover:text-gray-700 text-sm font-medium"
                       >
                         Copy All

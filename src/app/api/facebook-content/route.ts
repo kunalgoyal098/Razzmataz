@@ -141,7 +141,7 @@ export async function POST(request: NextRequest) {
 
     const service = new FacebookContentService();
     let content = '';
-    let additionalData: any = {};
+    let additionalData: Record<string, unknown> = {};
 
     switch (content_type) {
       case 'post':

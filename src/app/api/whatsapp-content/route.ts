@@ -156,7 +156,7 @@ export async function POST(request: NextRequest) {
     // Extract policy information
     const policyInfo = await service.extractPolicyInfo(user_prompt);
     
-    const result: any = {
+    const result: Record<string, unknown> = {
       extracted_info: policyInfo
     };
 

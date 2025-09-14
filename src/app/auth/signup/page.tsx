@@ -62,8 +62,8 @@ export default function SignUp() {
       } else {
         setError('Account created but please check your email for verification');
       }
-    } catch (err: any) {
-      setError(err.message || 'Failed to create account');
+    } catch (err: unknown) {
+      setError((err as Error).message || 'Failed to create account');
     } finally {
       setLoading(false);
     }

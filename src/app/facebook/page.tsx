@@ -43,7 +43,7 @@ export default function Facebook() {
     }));
   };
 
-  const postType = contentType === "post" ? (formData.post as any).postType : "policy_awareness";
+  const postType = contentType === "post" ? (formData.post as { postType: string }).postType : "policy_awareness";
   const setPostType = (value: string) => {
     if (contentType === "post") {
       setFormData(prev => ({
@@ -82,7 +82,7 @@ export default function Facebook() {
       } else {
         setError(data.message || "Failed to generate content");
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please try again.");
     } finally {
       setIsLoading(false);

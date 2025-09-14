@@ -190,7 +190,7 @@ export async function POST(request: NextRequest) {
 
     const service = new LinkedInContentService();
     let content = '';
-    let additionalData: any = {};
+    let additionalData: Record<string, unknown> = {};
 
     switch (content_type) {
       case 'post':

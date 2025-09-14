@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+// import Image from "next/image"; // Unused import
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -14,7 +14,7 @@ interface GeneratedContent {
     character_count: number;
     hashtags: string[];
   };
-  extracted_info?: any;
+  extracted_info?: Record<string, unknown>;
 }
 
 export default function WhatsApp() {
@@ -74,7 +74,7 @@ export default function WhatsApp() {
       } else {
         setError(data.message || "Failed to generate content");
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please try again.");
     } finally {
       setIsLoading(false);

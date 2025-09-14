@@ -121,7 +121,6 @@ class InstagramContentService {
       return Array.isArray(ideas) ? ideas : [];
     } catch (error) {
       console.error('Error generating post ideas:', error);
-      console.error('Failed to parse text:', response.candidates?.[0]?.content?.parts?.[0]?.text);
       
       // Fallback ideas if API fails
       return [

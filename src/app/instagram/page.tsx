@@ -123,7 +123,7 @@ export default function Instagram() {
       } else {
         setError(data.message || "Failed to generate content");
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please try again.");
     } finally {
       setIsLoading(false);
@@ -230,6 +230,7 @@ export default function Instagram() {
                       </div>
                     ) : (
                       <div className="relative">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover rounded-lg" />
                         <button
                           onClick={removeImage}

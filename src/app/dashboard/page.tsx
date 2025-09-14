@@ -98,7 +98,7 @@ export default function Dashboard() {
             {/* Hero Card */}
             <button
               onClick={() => router.push('/website-builder')}
-              className="relative rounded-2xl p-6 lg:p-8 xl:p-10 text-white overflow-hidden h-48 lg:h-64 xl:h-80 w-full text-left hover:scale-105 transition-transform duration-200"
+              className="relative rounded-2xl p-6 lg:p-8 xl:p-10 text-white overflow-hidden h-48 lg:h-64 xl:h-80 w-full text-left hover:scale-105 transition-transform duration-200 mb-4"
             >
               <Image
                 src="/assets/website_builder/websitegradient.png"
@@ -115,6 +115,27 @@ export default function Dashboard() {
                   Try our website builder for free
                 </p>
               </div>
+            </button>
+
+            {/* Call Analysis Card */}
+            <button
+              onClick={() => router.push('/interaction')}
+              className="bg-gradient-to-br from-green-500 to-teal-500 rounded-2xl p-6 text-white w-full text-left hover:scale-105 transition-transform duration-200"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+                  </svg>
+                </div>
+                <div className="text-white/80">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-xl font-bold mb-2">Call Analysis</h3>
+              <p className="text-white/90 text-sm">Upload call recordings and get AI-powered insights & coaching</p>
             </button>
             </div>
 
